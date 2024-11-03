@@ -1,20 +1,500 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-
-*/
+/* Основные стили страницы */
 
 .page {
+  color: var(--font-color);
+  font-family: var(--main-font-family, "Inter", sans-serif);
+  font-size: var(--main-font-weight-regular, "wght" 400);
+  background-image: var(--background-gradient);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   min-inline-size: 320px;
   min-block-size: 100dvb;
+}
+
+/* Класс-контейнер для выравнивания блоков по центру и задания их размеров */
+
+.container {
+  width: max(375px, 700px);
+  margin: 0 auto;
+}
+
+@media (width <= 375px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/* Стили рамки блоков */
+
+.border-container {
+  border: 2px solid var(--accent-color, #000);
+}
+
+/* Общие стили блока header */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding-top: clamp(120px, 30vw, 136px);
+  padding-bottom: 22px;
+  font-family: var(--accent-font-family, "PressStart2P", serif);
+  text-align: center;
+  background-color: var(--background-color, #fff);
+}
+
+/* Стили заголовка блока header */
+
+.header__title {
+  margin-bottom: 20px;
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+}
+
+/* Стили подзаголовка блока header */
+
+.header__description {
+  display: block;
+  margin-bottom: 25px;
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  text-transform: uppercase;
+}
+
+/* Стили меню выбора темы страницы в блоке header */
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* Стили кнопок и их состояний в меню выбора темы */
+
+.theme-menu__button {
+  position: relative;
+  margin-left: 20px;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.theme-menu__button:disabled {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-menu__button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.theme-menu__button:focus {
+  outline: none;
+}
+
+.theme-menu__button:focus-visible {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Анимация подчеркивания при фокусе на кнопку выбора темы */
+
+.theme-menu__button::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent-color, #000);
+  transition: width 0.5s;
+}
+
+.theme-menu__button:focus-visible::after {
+  width: 100%;
+}
+
+/* Стили основной части страницы */
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+}
+
+/* Общие стили карточек на странице */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color, #fff);
+}
+
+/* Заголовок в карточке */
+
+.card-title {
+  padding: 5px 25px 5px 9px;
+  font-size: 18px;
+  font-variation-settings: var(--main-font-weight-bold, "wght" 750);
+}
+
+/* Толщина текста заголовка карточки в темной теме */
+
+.theme-dark .card-title {
+  font-variation-settings: "wght" 785;
+}
+
+/* Стили изображения в карточке */
+
+.card-image-container {
+  position: relative;
+  border-top: 2px solid var(--accent-color, #000);
+  border-bottom: 2px solid var(--accent-color, #000);
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Стили лейбла в углу карточки */
+
+.card-image-watermark {
+  position: absolute;
+  top: 25px;
+  right: 11px;
+  display: block;
+  opacity: 0.5;
+  font-family: var(--accent-font-family, "PressStart2P", serif);
+  font-size: 14px;
+  text-shadow: 0px 0px 2px var(--text-shadow-color, #fff);
+  background-blend-mode: hard-light;
+}
+
+@supports ((text-stroke: 1px var(--text-shadow-color, #fff)) or (-webkit-text-stroke: 1px var(--text-shadow-color, #fff))) {
+  .card-image-watermark {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--text-shadow-color, #fff);
+    text-stroke: 1px var(--text-shadow-color, #fff);
+  }
+}
+
+/* Стили контейнера с текстом карточки */
+
+.card-text-container {
+  padding: 25px 25px 0px 25px;
+}
+
+/* Стили текста в карточке */
+
+.card-text {
+  font-size: 18px;
+}
+
+/* Толщина текста карточки в темной теме */
+
+.theme-dark .card-text {
+  font-variation-settings: "wght" 465;
+}
+
+/* Нижний отступ для текста (кроме последнего абзаца) */
+
+.card-text:not(:last-of-type) {
+  margin-bottom: 27px;
+}
+
+/* Контейнер для кнопок в карточке */
+
+.card-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 5px;
+  padding-top: 25px;
+  padding-right: 25px;
+  padding-bottom: 24px;
+}
+
+/* Кнопка с иконкой сердца и ее состоянии */
+
+.card__icon-button {
+  display: flex;
+  min-height: 38px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  padding: 0;
+  background-color: transparent;
+  transition: border-color 0.5s ease-in-out;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--accent-color, #000);
+}
+
+/* Скрываем спрайт искр */
+
+.card__icon-button .sparks {
+  opacity: 0;
+}
+
+.card__icon-button .like-icon {
+  cursor: pointer;
+}
+
+/* Стили для анимации лайка в сердце */
+
+.main-body {
+  fill: transparent;
+  transition: fill 0.3s linear;
+}
+
+.like-icon:hover .main-body {
+  fill: var(--accent-color, #000);
+  transition: fill 0.3s 0.05s linear;
+}
+
+.like-icon:active .main-body {
+  fill: red;
+  transition: fill 0.3s 0.05s linear;
+}
+
+.core {
+  fill: transparent;
+  transition: fill 0.3s 0.03s linear;
+}
+
+.like-icon:hover .core {
+  fill: var(--accent-color, #000);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:active .core {
+  fill: red;
+  transition: fill 0.3s linear;
+}
+
+/* Стили для поставленного лайка */
+
+.contour {
+  fill: var(--accent-color, #000);
+  transition: fill 0.1s linear;
+}
+
+.like-icon.is-liked .main-body {
+  fill: red;
+  transition: fill 0.3s 0.05s linear;
+}
+
+.like-icon.is-liked .core {
+  fill: red;
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .contour {
+  fill: red;
+  transition: fill 0.3s 0.06s linear;
+}
+
+/* Стили кнопки Like/Unlike и ее состояний */
+
+.button__text {
+  position: relative;
+  color: var(--button-text-color, #fff);
+  font-family: var(--accent-font-family, "PressStart2P", serif);
+  font-size: 14px;
+  mix-blend-mode: difference;
+}
+
+.card__like-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 130px;
+  min-height: 38px;
+  border: 2px solid var(--accent-color, #000);
+  padding: 0;
+  background-color: transparent;
+  transition: box-shadow 0.5s;
+}
+
+.card__like-button:focus {
+  outline: none;
+}
+
+.card__like-button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color, #000);
+}
+
+/* Стили при наведении на кнопку */
+
+.button-filling:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--accent-color, #000);
+  transition: width 0.5s ease-in-out;
+}
+
+.button-filling:hover:before {
+  width: 100%;
+}
+
+/* Блок стилей фильтров картинок */
+
+.blur {
+  filter: blur(3px);
+}
+
+.bright {
+  filter: brightness(130%);
+}
+
+.contrast {
+  filter: contrast(250%);
+}
+
+.grayscale {
+  filter: grayscale(80%);
+}
+
+.hue-rotate {
+  filter: hue-rotate(0.5turn);
+}
+
+.saturate {
+  filter: saturate(390%);
+}
+
+.sepia {
+  filter: sepia(100%);
+}
+
+.multiply_filters {
+  filter: blur(5px) brightness(150%) contrast(120%) grayscale(50%);
+}
+
+/* Общие стили футера */
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+/* Стили кнопки в футере и ее состояний */
+
+.footer-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: min(310px, 335px);
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 103px;
+  border: 2px solid var(--accent-color, #000);
+  padding: 15px 15px 15px 19px;
+  font-family: var(--accent-font-family, "PressStart2P", serif);
+  text-align: center;
+  background-color: var(--background-color, #fff);
+  cursor: pointer;
+}
+
+/* При размере экрана 375px меняется расположение иконки и текста в кнопке */
+
+@media (width <= 375px) {
+  .footer-button {
+    flex-direction: column;
+    padding: 15px 0;
+  }
+}
+
+.footer-button:focus {
+  outline: none;
+}
+
+.footer-button:focus-visible {
+  box-shadow: 2px 2px 0 var(--accent-color, #000);
+}
+
+.footer-button svg {
+  position: relative;
+  z-index: 1;
+  fill: var(--button-text-color, #fff);
+  mix-blend-mode: difference;
+}
+
+/* При размере экрана 375px меняется размер иконки */
+
+@media (width <= 375px) {
+  .footer-button svg {
+    width: 50px;
+    height: 27px;
+  }
+}
+
+/* Стили диалога (появляется при клике на кнопку "Сохранить на память" */
+
+.save-dialog-container::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
+}
+
+.save-dialog-container {
+  width: max(341px, 353px);
+  font-family: var(--accent-font-family, "PressStart2P", serif);
+  background-color: var(--background-color, #fff);
+}
+
+.save-dialog-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+/* Стили иконки и текста в диалоге */
+
+.save-dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+
+.save-dialog-icon {
+  width: 100px;
+  height: 39px;
+  fill: var(--button-text-color, #fff);
+  mix-blend-mode: difference;
+}
+
+.save-dialog-text {
+  display: block;
+  color: var(--button-text-color, #fff);
+  font-size: 14px;
+  line-height: 150%;
+  text-transform: uppercase;
+  mix-blend-mode: difference;
+}
+
+/* Кнопка в диалоге */
+
+.save-dialog-button {
+  width: 100%;
 }
