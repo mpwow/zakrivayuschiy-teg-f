@@ -392,6 +392,7 @@
 .footer {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 /* Стили кнопки в футере и ее состояний */
@@ -401,13 +402,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  width: min(310px, 335px);
+  gap: 10px;
+  width: clamp(310px, 28vw, 337px);
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 103px;
   border: 2px solid var(--accent-color, #000);
-  padding: 15px 15px 15px 19px;
+  padding: 15px;
   font-family: var(--accent-font-family, "PressStart2P", serif);
   text-align: center;
   background-color: var(--background-color, #fff);
