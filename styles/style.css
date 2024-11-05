@@ -3,11 +3,12 @@
 .page {
   color: var(--font-color);
   font-family: var(--main-font-family, "Inter", sans-serif);
-  font-size: var(--main-font-weight-regular, "wght" 400);
+  background-color: var(--background-color);
   background-image: var(--background-gradient);
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+  font-variation-settings: "wght" var(--main-font-weight-regular, 400);
   min-inline-size: 320px;
   min-block-size: 100dvb;
 }
@@ -15,7 +16,7 @@
 /* Класс-контейнер для выравнивания блоков по центру и задания их размеров */
 
 .container {
-  width: max(375px, 700px);
+  width: min(100%, 700px);
   margin: 0 auto;
 }
 
@@ -50,6 +51,7 @@
 /* Стили заголовка блока header */
 
 .header__title {
+  display: block;
   margin-bottom: 20px;
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
 }
@@ -81,6 +83,8 @@
   font-size: 14px;
   text-transform: uppercase;
   background-color: transparent;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .theme-menu__button:disabled {
@@ -91,7 +95,6 @@
 
 .theme-menu__button:hover {
   opacity: 0.6;
-  transition: opacity 0.3s ease;
 }
 
 .theme-menu__button:focus {
@@ -100,7 +103,6 @@
 
 .theme-menu__button:focus-visible {
   opacity: 0.6;
-  transition: opacity 0.3s ease;
 }
 
 /* Анимация подчеркивания при фокусе на кнопку выбора темы */
@@ -108,14 +110,35 @@
 .theme-menu__button::after {
   content: "";
   display: block;
-  width: 0%;
+  width: 100%;
   height: 2px;
   background-color: var(--accent-color, #000);
-  transition: width 0.5s;
+  transition: scale 0.3s ease;
+  transform-origin: left;
+  scale: 0;
 }
 
 .theme-menu__button:focus-visible::after {
-  width: 100%;
+  scale: 1;
+}
+
+/* Анимация стрелки рядом с кнопкой выбора темы */
+
+.theme-menu__button:disabled::before {
+  content: "▶";
+  position: absolute;
+  left: -16px;
+  animation: arrow-pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-pulse {
+  0% {
+    left: -16px;
+  }
+
+  100% {
+    left: -12px;
+  }
 }
 
 /* Стили основной части страницы */
@@ -139,14 +162,9 @@
 .card-title {
   padding: 5px 25px 5px 9px;
   font-size: 18px;
-  font-variation-settings: var(--main-font-weight-bold, "wght" 750);
+  font-variation-settings: "wght" var(--main-font-weight-bold, 700);
 }
 
-/* Толщина текста заголовка карточки в темной теме */
-
-.theme-dark .card-title {
-  font-variation-settings: "wght" 785;
-}
 
 /* Стили изображения в карточке */
 
@@ -158,8 +176,9 @@
 
 .card-image {
   display: block;
-  width: 100%;
+  max-width: 100%;
   object-fit: cover;
+  aspect-ratio: 1/1;
 }
 
 /* Стили лейбла в углу карточки */
@@ -172,7 +191,7 @@
   opacity: 0.5;
   font-family: var(--accent-font-family, "PressStart2P", serif);
   font-size: 14px;
-  text-shadow: 0px 0px 2px var(--text-shadow-color, #fff);
+  text-shadow: 0px 0px 1px var(--text-shadow-color, #fff);
   background-blend-mode: hard-light;
 }
 
@@ -194,12 +213,6 @@
 
 .card-text {
   font-size: 18px;
-}
-
-/* Толщина текста карточки в темной теме */
-
-.theme-dark .card-text {
-  font-variation-settings: "wght" 465;
 }
 
 /* Нижний отступ для текста (кроме последнего абзаца) */
@@ -270,7 +283,7 @@
 
 .core {
   fill: transparent;
-  transition: fill 0.3s 0.03s linear;
+  transition: fill 0.3s;
 }
 
 .like-icon:hover .core {
@@ -305,7 +318,7 @@
   transition: fill 0.3s 0.06s linear;
 }
 
-/* Стили кнопки Like/Unlike и ее состояний */
+/* Стили текста в кнопках */
 
 .button__text {
   position: relative;
@@ -315,30 +328,29 @@
   mix-blend-mode: difference;
 }
 
-.card__like-button {
+/* Общие стили для кнопок */
+
+.button {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 130px;
-  min-height: 38px;
   border: 2px solid var(--accent-color, #000);
   padding: 0;
   background-color: transparent;
-  transition: box-shadow 0.5s;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
-.card__like-button:focus {
+.button:focus {
   outline: none;
 }
 
-.card__like-button:focus-visible {
+.button:focus-visible {
   box-shadow: 2px 2px 0 var(--accent-color, #000);
 }
 
-/* Стили при наведении на кнопку */
-
-.button-filling:before {
+.button:before {
   content: "";
   position: absolute;
   top: 0;
@@ -349,8 +361,15 @@
   transition: width 0.5s ease-in-out;
 }
 
-.button-filling:hover:before {
+.button:hover:before {
   width: 100%;
+}
+
+/* Стили для кнопки Like/Unlike */
+
+.card__like-button {
+  min-width: 130px;
+  min-height: 38px;
 }
 
 /* Блок стилей фильтров картинок */
@@ -397,42 +416,27 @@
 
 /* Стили кнопки в футере и ее состояний */
 
-.footer-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.save-section-button {
   gap: 10px;
   width: clamp(310px, 28vw, 337px);
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 103px;
-  border: 2px solid var(--accent-color, #000);
   padding: 15px;
-  font-family: var(--accent-font-family, "PressStart2P", serif);
   text-align: center;
   background-color: var(--background-color, #fff);
-  cursor: pointer;
 }
 
 /* При размере экрана 375px меняется расположение иконки и текста в кнопке */
 
 @media (width <= 375px) {
-  .footer-button {
+  .save-section-button {
     flex-direction: column;
     padding: 15px 0;
   }
 }
 
-.footer-button:focus {
-  outline: none;
-}
-
-.footer-button:focus-visible {
-  box-shadow: 2px 2px 0 var(--accent-color, #000);
-}
-
-.footer-button svg {
+.save-section-button svg {
   position: relative;
   z-index: 1;
   fill: var(--button-text-color, #fff);
@@ -442,7 +446,7 @@
 /* При размере экрана 375px меняется размер иконки */
 
 @media (width <= 375px) {
-  .footer-button svg {
+  .save-section-button svg {
     width: 50px;
     height: 27px;
   }
@@ -498,4 +502,6 @@
 
 .save-dialog-button {
   width: 100%;
+  text-transform: uppercase;
+  min-height: 38px;
 }

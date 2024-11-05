@@ -1,9 +1,9 @@
 /* В этом файле будут храниться все значения переменных в исходном состоянии, а так же их изменения в зависимости от ширины устройства */
 :root {
   --main-font-family: "Inter", sans-serif;
-  --accent-font-family: "PressStart2P", serif;
-  --main-font-weight-regular: "wght" 400;
-  --main-font-weight-bold: "wght" 750;
+  --accent-font-family: "PressStart2P", fantasy;
+  --main-font-weight-regular: 400;
+  --main-font-weight-bold: 700;
   --font-color: #000;
   --background-color: #fff;
   --background-gradient: repeating-linear-gradient(90deg, #d3d3d3 0 2px, transparent 2px 4px),
