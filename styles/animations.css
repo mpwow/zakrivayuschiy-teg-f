@@ -1,9 +1,16 @@
-/* Анимация увеличения сердца при лайке */
+/* /* Анимация стрелки рядом с кнопкой выбора темы */
 
-.like-icon.is-liked .heart {
-  transform-origin: center;
-  animation: like-with-scale 0.3s ease-in 0.1s;
+@keyframes arrow-pulse {
+  0% {
+    left: -16px;
+  }
+
+  100% {
+    left: -12px;
+  }
 }
+
+/* Анимация увеличения сердца при лайке */
 
 @keyframes like-with-scale {
   0% {
@@ -15,10 +22,6 @@
 }
 
 /* Анимация появления искр на иконке сердца при лайке */
-
-.like-icon.is-liked .sparks {
-  animation: like-with-sparks 0.3s ease-in 0.3s;
-}
 
 @keyframes like-with-sparks {
   0% {

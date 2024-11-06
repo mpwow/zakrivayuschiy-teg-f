@@ -89,7 +89,6 @@
 
 .theme-menu__button:disabled {
   opacity: 0.6;
-  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
@@ -122,23 +121,13 @@
   scale: 1;
 }
 
-/* Анимация стрелки рядом с кнопкой выбора темы */
+/* Стили элемента с подчеркиванием кнопки выбора темы в хэдере */
 
 .theme-menu__button:disabled::before {
   content: "▶";
   position: absolute;
   left: -16px;
   animation: arrow-pulse 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes arrow-pulse {
-  0% {
-    left: -16px;
-  }
-
-  100% {
-    left: -12px;
-  }
 }
 
 /* Стили основной части страницы */
@@ -164,7 +153,6 @@
   font-size: 18px;
   font-variation-settings: "wght" var(--main-font-weight-bold, 700);
 }
-
 
 /* Стили изображения в карточке */
 
@@ -283,7 +271,7 @@
 
 .core {
   fill: transparent;
-  transition: fill 0.3s;
+  transition: fill 0.3s linear;
 }
 
 .like-icon:hover .core {
@@ -316,6 +304,15 @@
 .like-icon.is-liked .contour {
   fill: red;
   transition: fill 0.3s 0.06s linear;
+}
+
+.like-icon.is-liked .heart {
+  transform-origin: center;
+  animation: like-with-scale 0.3s ease-in 0.1s;
+}
+
+.like-icon.is-liked .sparks {
+  animation: like-with-sparks 0.3s ease-in 0.3s;
 }
 
 /* Стили текста в кнопках */
